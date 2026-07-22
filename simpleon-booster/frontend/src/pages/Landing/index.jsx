@@ -1,2 +1,8 @@
 import React from 'react';
-export default function Landing() { return <div>Landing Page</div>; }
+import WalletModal from '../../components/ui/WalletModal';
+
+export default function Landing() {
+  return (
+    <WalletModal />
+  );
+}
