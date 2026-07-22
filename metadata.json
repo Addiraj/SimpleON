@@ -1,0 +1,6 @@
+{
+  "name": "SimpleOn",
+  "description": "An interactive marketing and calculation engine simulator for the SimpleOn crypto income platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

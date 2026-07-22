@@ -1,0 +1,167 @@
+{
+  "info": {
+    "name": "SimpleOn Web3 Booster API",
+    "description": "Production REST API collection for SimpleOn Web3 Booster Plan & Matrix Engine",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Get SIWE Auth Nonce",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/auth/nonce?address=0x71C7656EC7ab88b098defB751B7401B5f6d8976F",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "auth", "nonce"],
+              "query": [
+                {
+                  "key": "address",
+                  "value": "0x71C7656EC7ab88b098defB751B7401B5f6d8976F"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Verify Web3 Signature",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"address\": \"0x71C7656EC7ab88b098defB751B7401B5f6d8976F\",\n  \"signature\": \"0x1234...\",\n  \"message\": \"Welcome to SimpleOn...\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/verify",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "auth", "verify"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Booster Plan",
+      "item": [
+        {
+          "name": "Get Booster Calculations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/booster/calculations?basePlan=1.0",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "booster", "calculations"],
+              "query": [
+                {
+                  "key": "basePlan",
+                  "value": "1.0"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Upgrade Booster Tier",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetTier\": \"BUILDER\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/booster/upgrade",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "booster", "upgrade"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Matrix Engine",
+      "item": [
+        {
+          "name": "Get 13-Level Forced Matrix Tree",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/matrix/13-level-tree?address=0x71C7656EC7ab88b098defB751B7401B5f6d8976F",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "matrix", "13-level-tree"],
+              "query": [
+                {
+                  "key": "address",
+                  "value": "0x71C7656EC7ab88b098defB751B7401B5f6d8976F"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Contract & Stats",
+      "item": [
+        {
+          "name": "Get Global Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/stats/global",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "stats", "global"]
+            }
+          }
+        },
+        {
+          "name": "Get Contract Info & ABI",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/contract/info",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "contract", "info"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

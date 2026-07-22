@@ -1,0 +1,288 @@
+import React, { useState } from 'react';
+import { motion } from 'motion/react';
+import { 
+  User, ShieldCheck, Wallet, Bell, Globe, Moon, Sun, Key, 
+  Check, Copy, CheckCircle2, Lock, Smartphone, RefreshCw, FileText, AlertCircle 
+} from 'lucide-react';
+import { useWeb3Store } from '../store/useWeb3Store';
+
+export default function ProfileSettings() {
+  const { address, walletType, isConnected, openWalletModal } = useWeb3Store();
+
+  const [activeTab, setActiveTab] = useState<'PROFILE' | 'WALLET' | 'SECURITY' | 'NOTIFICATIONS' | 'ACTIVITY'>('PROFILE');
+  const [copiedAddress, setCopiedAddress] = useState(false);
+  const [emailNotifs, setEmailNotifs] = useState(true);
+  const [telegramNotifs, setTelegramNotifs] = useState(true);
+  const [rewardNotifs, setRewardNotifs] = useState(true);
+  const [language, setLanguage] = useState('English (US)');
+
+  const userAddress = address || '0x71C7656EC7ab88b098defB751B7401B5f6d8976F';
+
+  const copyAddress = () => {
+    navigator.clipboard.writeText(userAddress);
+    setCopiedAddress(true);
+    setTimeout(() => setCopiedAddress(false), 2000);
+  };
+
+  const activityLogs = [
+    { id: 1, action: 'SIWE Authentication Logged In', ip: '185.220.101.5', time: '2026-07-22 08:30:12', device: 'Chrome / macOS' },
+    { id: 2, action: 'Matrix X5 Payout Claimed (+80 USDT)', ip: '185.220.101.5', time: '2026-07-21 14:22:05', device: 'MetaMask Extension' },
+    { id: 3, action: 'Base Plan Booster Upgraded to $1.00', ip: '185.220.101.5', time: '2026-07-20 09:11:40', device: 'WalletConnect App' },
+    { id: 4, action: 'Signed SIWE Challenge Message', ip: '185.220.101.5', time: '2026-07-19 18:05:00', device: 'Chrome / macOS' },
+  ];
+
+  return (
+    <div className="py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      
+      {/* Header Banner */}
+      <div className="rounded-3xl bg-surface border border-border-theme p-8 shadow-xl relative overflow-hidden glass-panel">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative z-10">
+          <div className="flex items-center space-x-4">
+            <div className="w-16 h-16 rounded-2xl bg-accent-red/10 border-2 border-accent-red/30 flex items-center justify-center text-accent-red font-black text-2xl font-mono shadow-md">
+              0x
+            </div>
+            <div>
+              <div className="flex items-center space-x-2">
+                <h1 className="text-2xl sm:text-3xl font-black text-prime font-mono">
+                  {userAddress.slice(0, 6)}...{userAddress.slice(-4)}
+                </h1>
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 font-bold text-[10px] border border-emerald-500/20 flex items-center space-x-1">
+                  <ShieldCheck size={12} />
+                  <span>Verified Web3 Partner</span>
+                </span>
+              </div>
+              <p className="text-xs text-sub mt-1">
+                Joined SimpleOn Matrix: <strong className="text-prime">Jan 15, 2026</strong> • Chain: <strong className="text-prime">BNB Smart Chain (97)</strong>
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={copyAddress}
+            className="px-5 py-2.5 rounded-2xl bg-surface-elevated hover:bg-surface border border-border-theme text-prime text-xs font-bold transition-all flex items-center space-x-2"
+          >
+            {copiedAddress ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
+            <span>{copiedAddress ? 'Address Copied!' : 'Copy Wallet Address'}</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Tabs Row */}
+      <div className="flex items-center space-x-2 overflow-x-auto pb-2 border-b border-border-theme">
+        <button
+          onClick={() => setActiveTab('PROFILE')}
+          className={`px-5 py-2.5 rounded-2xl text-xs font-bold transition-all flex items-center space-x-2 shrink-0 ${
+            activeTab === 'PROFILE' ? 'bg-accent-red text-white shadow-md' : 'bg-surface-elevated text-sub hover:text-prime'
+          }`}
+        >
+          <User size={14} />
+          <span>Profile Overview</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('WALLET')}
+          className={`px-5 py-2.5 rounded-2xl text-xs font-bold transition-all flex items-center space-x-2 shrink-0 ${
+            activeTab === 'WALLET' ? 'bg-accent-red text-white shadow-md' : 'bg-surface-elevated text-sub hover:text-prime'
+          }`}
+        >
+          <Wallet size={14} />
+          <span>Connected Wallets</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('SECURITY')}
+          className={`px-5 py-2.5 rounded-2xl text-xs font-bold transition-all flex items-center space-x-2 shrink-0 ${
+            activeTab === 'SECURITY' ? 'bg-accent-red text-white shadow-md' : 'bg-surface-elevated text-sub hover:text-prime'
+          }`}
+        >
+          <ShieldCheck size={14} />
+          <span>Security & SIWE</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('NOTIFICATIONS')}
+          className={`px-5 py-2.5 rounded-2xl text-xs font-bold transition-all flex items-center space-x-2 shrink-0 ${
+            activeTab === 'NOTIFICATIONS' ? 'bg-accent-red text-white shadow-md' : 'bg-surface-elevated text-sub hover:text-prime'
+          }`}
+        >
+          <Bell size={14} />
+          <span>Notification Preferences</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('ACTIVITY')}
+          className={`px-5 py-2.5 rounded-2xl text-xs font-bold transition-all flex items-center space-x-2 shrink-0 ${
+            activeTab === 'ACTIVITY' ? 'bg-accent-red text-white shadow-md' : 'bg-surface-elevated text-sub hover:text-prime'
+          }`}
+        >
+          <FileText size={14} />
+          <span>Activity Log</span>
+        </button>
+      </div>
+
+      {/* TAB CONTENT 1: PROFILE */}
+      {activeTab === 'PROFILE' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="p-6 rounded-3xl bg-surface border border-border-theme shadow-md space-y-4">
+            <h3 className="text-sm font-black text-prime uppercase tracking-wider font-mono">Account Identity</h3>
+            <div className="space-y-3 text-xs font-mono">
+              <div>
+                <span className="text-sub block text-[10px]">Primary Web3 Address</span>
+                <span className="font-bold text-prime break-all">{userAddress}</span>
+              </div>
+              <div>
+                <span className="text-sub block text-[10px]">Referral Sponsor</span>
+                <span className="font-bold text-emerald-500">0xRoot...Matrix</span>
+              </div>
+              <div>
+                <span className="text-sub block text-[10px]">KYC Verification Status</span>
+                <span className="inline-flex items-center space-x-1 font-bold text-emerald-500">
+                  <CheckCircle2 size={12} />
+                  <span>Web3 Wallet SIWE Signed (KYC Free)</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-6 rounded-3xl bg-surface border border-border-theme shadow-md space-y-4">
+            <h3 className="text-sm font-black text-prime uppercase tracking-wider font-mono">Preferences</h3>
+            <div className="space-y-4 text-xs font-mono">
+              <div>
+                <label className="text-sub block text-[10px] mb-1">Display Language</label>
+                <select
+                  value={language}
+                  onChange={(e) => setLanguage(e.target.value)}
+                  className="w-full p-3 rounded-2xl bg-surface-elevated border border-border-theme text-prime font-bold"
+                >
+                  <option>English (US)</option>
+                  <option>Spanish (Español)</option>
+                  <option>French (Français)</option>
+                  <option>Mandarin (中文)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="text-sub block text-[10px] mb-1">Network Standard</label>
+                <div className="p-3 rounded-2xl bg-surface-elevated border border-border-theme text-prime font-bold flex justify-between items-center">
+                  <span>BNB Smart Chain Testnet (97)</span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB CONTENT 2: WALLET */}
+      {activeTab === 'WALLET' && (
+        <div className="p-6 sm:p-8 rounded-3xl bg-surface border border-border-theme shadow-xl space-y-6">
+          <h3 className="text-sm font-black text-prime uppercase tracking-wider font-mono">Connected Web3 Providers</h3>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="p-5 rounded-2xl bg-surface-elevated border border-border-theme space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="font-bold text-prime text-xs">MetaMask Extension</span>
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+              </div>
+              <p className="text-[11px] text-sub font-mono">Status: Connected Active</p>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-surface-elevated border border-border-theme space-y-2 opacity-60">
+              <div className="flex justify-between items-center">
+                <span className="font-bold text-prime text-xs">WalletConnect v2</span>
+                <span className="w-2.5 h-2.5 rounded-full bg-sub" />
+              </div>
+              <p className="text-[11px] text-sub font-mono">Status: Standby</p>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-surface-elevated border border-border-theme space-y-2 opacity-60">
+              <div className="flex justify-between items-center">
+                <span className="font-bold text-prime text-xs">Coinbase Wallet</span>
+                <span className="w-2.5 h-2.5 rounded-full bg-sub" />
+              </div>
+              <p className="text-[11px] text-sub font-mono">Status: Disconnected</p>
+            </div>
+          </div>
+
+          <button
+            onClick={openWalletModal}
+            className="px-6 py-3 rounded-2xl bg-accent-red text-white text-xs font-black shadow-md hover:bg-accent-red/90 transition-all"
+          >
+            Switch Active Web3 Provider
+          </button>
+        </div>
+      )}
+
+      {/* TAB CONTENT 3: SECURITY */}
+      {activeTab === 'SECURITY' && (
+        <div className="p-6 sm:p-8 rounded-3xl bg-surface border border-border-theme shadow-xl space-y-6">
+          <h3 className="text-sm font-black text-prime uppercase tracking-wider font-mono">SIWE & Cryptographic Proofs</h3>
+          
+          <div className="p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-xs font-mono space-y-1">
+            <p className="font-bold flex items-center space-x-1">
+              <ShieldCheck size={16} />
+              <span>EIP-4361 Sign-In With Ethereum Active</span>
+            </p>
+            <p className="text-sub">Your session is secured via ECDSA cryptographic signatures. Passwords are never stored on centralized servers.</p>
+          </div>
+        </div>
+      )}
+
+      {/* TAB CONTENT 4: NOTIFICATIONS */}
+      {activeTab === 'NOTIFICATIONS' && (
+        <div className="p-6 sm:p-8 rounded-3xl bg-surface border border-border-theme shadow-xl space-y-6">
+          <h3 className="text-sm font-black text-prime uppercase tracking-wider font-mono">Notification Channels</h3>
+          
+          <div className="space-y-4 text-xs font-mono">
+            <div className="flex items-center justify-between p-4 rounded-2xl bg-surface-elevated border border-border-theme">
+              <div>
+                <span className="font-bold text-prime block">In-App Live Alerts</span>
+                <span className="text-sub">Receive instant toast popups when referrals join or matrix completes</span>
+              </div>
+              <input type="checkbox" checked={rewardNotifs} onChange={() => setRewardNotifs(!rewardNotifs)} className="w-4 h-4 accent-accent-red" />
+            </div>
+
+            <div className="flex items-center justify-between p-4 rounded-2xl bg-surface-elevated border border-border-theme">
+              <div>
+                <span className="font-bold text-prime block">Telegram Bot Alerts</span>
+                <span className="text-sub">Push notifications for wallet distributions</span>
+              </div>
+              <input type="checkbox" checked={telegramNotifs} onChange={() => setTelegramNotifs(!telegramNotifs)} className="w-4 h-4 accent-accent-red" />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB CONTENT 5: ACTIVITY LOG */}
+      {activeTab === 'ACTIVITY' && (
+        <div className="p-6 sm:p-8 rounded-3xl bg-surface border border-border-theme shadow-xl space-y-6">
+          <h3 className="text-sm font-black text-prime uppercase tracking-wider font-mono">Security & Session Audit Log</h3>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full text-left font-mono text-xs border-collapse">
+              <thead>
+                <tr className="border-b border-border-theme text-sub uppercase text-[10px]">
+                  <th className="py-3 px-4">Action</th>
+                  <th className="py-3 px-4">IP Address</th>
+                  <th className="py-3 px-4">Timestamp</th>
+                  <th className="py-3 px-4">Device</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border-theme">
+                {activityLogs.map((log) => (
+                  <tr key={log.id} className="hover:bg-surface-elevated/50 transition-colors">
+                    <td className="py-3.5 px-4 font-bold text-prime">{log.action}</td>
+                    <td className="py-3.5 px-4 text-sub">{log.ip}</td>
+                    <td className="py-3.5 px-4 text-sub">{log.time}</td>
+                    <td className="py-3.5 px-4 text-prime font-bold">{log.device}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+    </div>
+  );
+}
