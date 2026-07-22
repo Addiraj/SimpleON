@@ -1,2 +1,0 @@
-# SimpleON
-MLM Blockchain Project
