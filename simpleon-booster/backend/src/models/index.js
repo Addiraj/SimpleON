@@ -32,10 +32,9 @@ Transaction.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 User.hasMany(DailyCap, { foreignKey: 'userId', as: 'dailyCaps' });
 DailyCap.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 
-// User -> User (Self-referencing for referrals)
-User.hasMany(User, { foreignKey: 'referredBy', as: 'referrals' });
-User.belongsTo(User, { foreignKey: 'referredBy', as: 'referrer' });
-
+// Note: Referral associations (referredBy) have been temporarily removed 
+// as requested to match the strict Phase 1 schema. They will be added 
+// modularly in the Referral System phase.
 
 export {
   sequelize,
