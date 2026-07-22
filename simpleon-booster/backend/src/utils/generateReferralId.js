@@ -1,0 +1,1 @@
+export const generateReferralId = () => 'REF123';

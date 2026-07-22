@@ -1,0 +1,1 @@
+export const getReferrals = (req, res) => res.json({ message: 'getReferrals placeholder' });
