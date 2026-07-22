@@ -1,0 +1,1 @@
+export const connectWallet = (req, res) => res.json({ message: 'connectWallet placeholder' });
