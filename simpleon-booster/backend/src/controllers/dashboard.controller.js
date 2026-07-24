@@ -1,1 +1,0 @@
-export const getDashboard = (req, res) => res.json({ message: 'getDashboard placeholder' });

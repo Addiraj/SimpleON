@@ -1,1 +1,0 @@
-export const joinBooster = (req, res) => res.json({ message: 'joinBooster placeholder' });
