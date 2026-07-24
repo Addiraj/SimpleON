@@ -1,6 +1,7 @@
 import { Response, NextFunction } from 'express';
 import { AuthRequest } from '../middlewares/authMiddleware.js';
 import { UserService } from '../services/UserService.js';
+<<<<<<< HEAD
 import { sendSuccess } from '../utils/apiResponse.js';
 
 export class UserController {
@@ -20,11 +21,26 @@ export class UserController {
       const hostHeader = req.get('host');
       const profile = await UserService.getProfile(userIdOrAddress, hostHeader);
       return sendSuccess(res, { profile, ...profile }, 'Profile retrieved successfully');
+=======
+
+export class UserController {
+  static getProfile(req: AuthRequest, res: Response, next: NextFunction) {
+    try {
+      const address = req.userAddress || (req.query.address as string);
+      if (!address) {
+        res.status(400).json({ success: false, error: { message: 'Address required' } });
+        return;
+      }
+
+      const profile = UserService.getUserProfile(address);
+      res.json({ success: true, data: profile });
+>>>>>>> fe05ef7be215c289d9c2e81e5d2ca052e3956485
     } catch (err) {
       next(err);
     }
   }
 
+<<<<<<< HEAD
   /**
    * PATCH /api/user/profile
    */
@@ -108,6 +124,8 @@ export class UserController {
   /**
    * POST /api/user/base-plan (Legacy support)
    */
+=======
+>>>>>>> fe05ef7be215c289d9c2e81e5d2ca052e3956485
   static updateBasePlan(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       const address = req.userAddress;
@@ -119,11 +137,18 @@ export class UserController {
       }
 
       const updatedUser = UserService.updateBasePlan(address, Number(basePlanAmount));
+<<<<<<< HEAD
       return sendSuccess(res, updatedUser, 'Base plan updated successfully');
+=======
+      res.json({ success: true, data: updatedUser });
+>>>>>>> fe05ef7be215c289d9c2e81e5d2ca052e3956485
     } catch (err) {
       next(err);
     }
   }
 }
+<<<<<<< HEAD
 
 export default UserController;
+=======
+>>>>>>> fe05ef7be215c289d9c2e81e5d2ca052e3956485

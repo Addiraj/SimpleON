@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
+=======
+import React, { useState } from 'react';
+>>>>>>> fe05ef7be215c289d9c2e81e5d2ca052e3956485
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Users, UserCheck, Copy, Check, QrCode, Share2, Search, Filter, 
@@ -7,7 +11,10 @@ import {
   UserPlus, ShieldCheck, Zap, RefreshCw, Eye, Info, CheckCircle2, AlertCircle
 } from 'lucide-react';
 import { useWeb3Store } from '../store/useWeb3Store';
+<<<<<<< HEAD
 import { referralApi } from '../services/api';
+=======
+>>>>>>> fe05ef7be215c289d9c2e81e5d2ca052e3956485
 
 // Mock Referral Member Interface
 interface ReferralMember {
@@ -152,7 +159,11 @@ const allMembersList: ReferralMember[] = [
 ];
 
 export default function ReferralDashboard() {
+<<<<<<< HEAD
   const { address, isAuthenticated, openWalletModal } = useWeb3Store();
+=======
+  const { address, openWalletModal } = useWeb3Store();
+>>>>>>> fe05ef7be215c289d9c2e81e5d2ca052e3956485
 
   const [copiedLink, setCopiedLink] = useState(false);
   const [copiedCode, setCopiedCode] = useState(false);
@@ -164,6 +175,7 @@ export default function ReferralDashboard() {
   const [selectedNodeDetails, setSelectedNodeDetails] = useState<ReferralMember | null>(null);
   const [customInviteMsg, setCustomInviteMsg] = useState('Hey! Join my SimpleOn Web3 Matrix team on BNB Smart Chain and start earning 20% direct referral commissions + 13-Level team spillover!');
 
+<<<<<<< HEAD
   // Live Referral Data State
   const [summaryData, setSummaryData] = useState<any>(null);
   const [treeData, setTreeData] = useState<any>(referralTreeData);
@@ -250,6 +262,11 @@ export default function ReferralDashboard() {
   const userAddress = address || '0x71C7656EC7ab88b098defB751B7401B5f6d8976F';
   const referralCode = summaryData?.referralCode || (address ? address.slice(-8).toUpperCase() : 'F6D8976F');
   const referralUrl = summaryData?.referralUrl || `${window.location.origin}/?ref=${referralCode}`;
+=======
+  const userAddress = address || '0x71C7656EC7ab88b098defB751B7401B5f6d8976F';
+  const referralCode = address ? address.slice(-8).toUpperCase() : 'F6D8976F';
+  const referralUrl = `${window.location.origin}/?ref=${userAddress}`;
+>>>>>>> fe05ef7be215c289d9c2e81e5d2ca052e3956485
 
   const copyUrl = () => {
     navigator.clipboard.writeText(referralUrl);
@@ -263,6 +280,7 @@ export default function ReferralDashboard() {
     setTimeout(() => setCopiedCode(false), 2000);
   };
 
+<<<<<<< HEAD
   const handleAssignSponsorSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!assignInput.trim()) return;
@@ -286,6 +304,10 @@ export default function ReferralDashboard() {
 
   // Filtered members list
   const filteredMembers = membersList.filter(m => {
+=======
+  // Filtered members list
+  const filteredMembers = allMembersList.filter(m => {
+>>>>>>> fe05ef7be215c289d9c2e81e5d2ca052e3956485
     const matchesSearch = m.address.toLowerCase().includes(searchQuery.toLowerCase()) || m.matrixPosition.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesLevel = levelFilter === 'ALL' ? true : levelFilter === 'DIRECT' ? m.level === 1 : m.level > 1;
     const matchesTier = tierFilter === 'ALL' ? true : m.tier === tierFilter;
@@ -347,6 +369,7 @@ export default function ReferralDashboard() {
 
           <div className="flex items-center space-x-3 shrink-0">
             <button
+<<<<<<< HEAD
               onClick={() => setShowAssignModal(true)}
               className="p-3.5 rounded-2xl bg-surface-elevated hover:bg-surface border border-border-theme text-prime transition-colors flex items-center space-x-2 text-xs font-bold"
             >
@@ -355,6 +378,8 @@ export default function ReferralDashboard() {
             </button>
 
             <button
+=======
+>>>>>>> fe05ef7be215c289d9c2e81e5d2ca052e3956485
               onClick={() => setShowInviteModal(true)}
               className="px-6 py-3.5 rounded-2xl bg-accent-red text-white text-xs font-black shadow-lg shadow-accent-red/25 hover:bg-accent-red/90 transition-all flex items-center space-x-2"
             >
@@ -474,12 +499,19 @@ export default function ReferralDashboard() {
             <span className="text-[11px] font-mono font-bold uppercase">Direct Referrals</span>
             <Users size={18} className="text-accent-red" />
           </div>
+<<<<<<< HEAD
           <div className="text-3xl font-black font-mono text-prime">
             {summaryData ? `${summaryData.directReferralCount} Directs` : '14 Directs'}
           </div>
           <p className="text-[11px] text-emerald-500 font-bold flex items-center space-x-1">
             <CheckCircle2 size={12} />
             <span>{summaryData ? `${summaryData.qualifiedBuilders} Active / Qualified` : '9 Active / 5 Pending Upgrade'}</span>
+=======
+          <div className="text-3xl font-black font-mono text-prime">14 Directs</div>
+          <p className="text-[11px] text-emerald-500 font-bold flex items-center space-x-1">
+            <CheckCircle2 size={12} />
+            <span>9 Active / 5 Pending Upgrade</span>
+>>>>>>> fe05ef7be215c289d9c2e81e5d2ca052e3956485
           </p>
         </div>
 
@@ -489,6 +521,7 @@ export default function ReferralDashboard() {
             <span className="text-[11px] font-mono font-bold uppercase">Indirect Referrals (L2-L13)</span>
             <Layers size={18} className="text-accent-blue" />
           </div>
+<<<<<<< HEAD
           <div className="text-3xl font-black font-mono text-accent-blue">
             {summaryData ? `${summaryData.indirectReferralCount} Members` : '86 Team Members'}
           </div>
@@ -521,6 +554,32 @@ export default function ReferralDashboard() {
           <div className="text-3xl font-black font-mono text-prime">
             {summaryData ? `${summaryData.qualifiedBuilders} Builders` : '82.5%'}
           </div>
+=======
+          <div className="text-3xl font-black font-mono text-accent-blue">86 Team Members</div>
+          <p className="text-[11px] text-sub">Spanning 13 Matrix Team Levels</p>
+        </div>
+
+        {/* Stat 3: Total Referral Earnings */}
+        <div className="p-6 rounded-3xl bg-surface border border-border-theme shadow-md space-y-2 relative overflow-hidden">
+          <div className="flex justify-between items-center text-sub">
+            <span className="text-[11px] font-mono font-bold uppercase">Total Referral Earnings</span>
+            <DollarSign size={18} className="text-emerald-500" />
+          </div>
+          <div className="text-3xl font-black font-mono text-emerald-500">$2,450.00 USDT</div>
+          <p className="text-[11px] text-emerald-500 font-bold flex items-center space-x-1">
+            <TrendingUp size={12} />
+            <span>+$240.00 earned this week</span>
+          </p>
+        </div>
+
+        {/* Stat 4: Qualification Rate */}
+        <div className="p-6 rounded-3xl bg-surface border border-border-theme shadow-md space-y-2 relative overflow-hidden">
+          <div className="flex justify-between items-center text-sub">
+            <span className="text-[11px] font-mono font-bold uppercase">Qualification Rate</span>
+            <Trophy size={18} className="text-amber-500" />
+          </div>
+          <div className="text-3xl font-black font-mono text-prime">82.5%</div>
+>>>>>>> fe05ef7be215c289d9c2e81e5d2ca052e3956485
           <p className="text-[11px] text-sub">Qualifies for 100% Spillover Pool</p>
         </div>
 
@@ -865,6 +924,7 @@ export default function ReferralDashboard() {
         )}
       </AnimatePresence>
 
+<<<<<<< HEAD
       {/* MODAL 3: ASSIGN SPONSOR MODAL */}
       <AnimatePresence>
         {showAssignModal && (
@@ -921,6 +981,8 @@ export default function ReferralDashboard() {
         )}
       </AnimatePresence>
 
+=======
+>>>>>>> fe05ef7be215c289d9c2e81e5d2ca052e3956485
     </div>
   );
 }

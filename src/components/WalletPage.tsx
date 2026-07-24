@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
+=======
+import React, { useState } from 'react';
+>>>>>>> fe05ef7be215c289d9c2e81e5d2ca052e3956485
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Wallet, ShieldCheck, Check, Copy, ExternalLink, RefreshCw, AlertCircle, 
@@ -6,7 +10,10 @@ import {
   Layers, CheckCircle2, Shield, AlertTriangle, LogOut
 } from 'lucide-react';
 import { useWeb3Store } from '../store/useWeb3Store';
+<<<<<<< HEAD
 import { transactionApi } from '../services/api';
+=======
+>>>>>>> fe05ef7be215c289d9c2e81e5d2ca052e3956485
 
 export default function WalletPage() {
   const { 
@@ -30,6 +37,7 @@ export default function WalletPage() {
     isConnected ? 'success' : 'disconnected'
   );
 
+<<<<<<< HEAD
   const [realActivity, setRealActivity] = useState<any[]>([]);
 
   useEffect(() => {
@@ -46,6 +54,8 @@ export default function WalletPage() {
     loadRecentTx();
   }, [isConnected]);
 
+=======
+>>>>>>> fe05ef7be215c289d9c2e81e5d2ca052e3956485
   const formattedAddr = address ? `${address.substring(0, 6)}...${address.substring(address.length - 6)}` : '0x71C7...f6d8976F';
 
   const handleCopy = () => {
@@ -525,7 +535,11 @@ export default function WalletPage() {
             </div>
 
             <div className="space-y-3">
+<<<<<<< HEAD
               {(realActivity.length > 0 ? realActivity : recentActivity).map((tx) => (
+=======
+              {recentActivity.map((tx) => (
+>>>>>>> fe05ef7be215c289d9c2e81e5d2ca052e3956485
                 <div
                   key={tx.id}
                   className="p-4 rounded-2xl bg-surface-elevated border border-border-theme hover:border-accent-red/30 transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs"
@@ -533,6 +547,7 @@ export default function WalletPage() {
                   <div className="space-y-1">
                     <div className="flex items-center space-x-2 font-bold text-prime">
                       <span className="w-2 h-2 rounded-full bg-emerald-500" />
+<<<<<<< HEAD
                       <span>{tx.type || tx.transactionType || 'ON_CHAIN_EVENT'}</span>
                       <span className="text-[10px] font-mono font-normal text-sub">
                         ({tx.createdAt ? new Date(tx.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : (tx.timestamp || 'Just now')})
@@ -547,11 +562,27 @@ export default function WalletPage() {
                     </span>
                     <a
                       href={tx.explorerUrl || `https://testnet.bscscan.com/tx/${tx.txHash || tx.hash}`}
+=======
+                      <span>{tx.type}</span>
+                      <span className="text-[10px] font-mono font-normal text-sub">({tx.timestamp})</span>
+                    </div>
+                    <div className="text-[11px] text-sub font-mono">{tx.details}</div>
+                  </div>
+
+                  <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto space-x-4">
+                    <span className="font-mono font-extrabold text-emerald-500">{tx.amount}</span>
+                    <a
+                      href={`https://testnet.bscscan.com/tx/${tx.hash}`}
+>>>>>>> fe05ef7be215c289d9c2e81e5d2ca052e3956485
                       target="_blank"
                       rel="noreferrer"
                       className="p-2 rounded-xl bg-surface border border-border-theme text-sub hover:text-accent-red transition-colors flex items-center space-x-1 font-mono text-[10px]"
                     >
+<<<<<<< HEAD
                       <span>{(tx.txHash || tx.hash || tx.id).substring(0, 8)}...</span>
+=======
+                      <span>{tx.hash.substring(0, 8)}...</span>
+>>>>>>> fe05ef7be215c289d9c2e81e5d2ca052e3956485
                       <ExternalLink size={12} />
                     </a>
                   </div>
